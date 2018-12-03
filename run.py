@@ -67,8 +67,15 @@ top = padding
 bottom = height-padding
 x = padding
 
+logo = Image.open('rcmvitharme.png').resize((disp.width, disp.height), Image.ANTIALIAS).convert('1')
+disp.image(logo)
+disp.display()
+time.sleep(1)
+draw.rectangle((0,0,width,height), outline=0, fill=0)
+
 font = ImageFont.truetype('8.ttf', 8)
 fontM = ImageFont.truetype('8.ttf', 12)
+fontL = ImageFont.truetype('8.ttf', 12)
 
 draw.text((x, top),    'Choose payload',  font=font, fill=255)
 draw.text((x, top+20), 'SX OS', font=fontM, fill=255)
@@ -83,7 +90,7 @@ subprocess.check_output(cmd, shell = True )
 try:
     while 1:
         if GPIO.input(U_pin): # button is released
-            draw.rectangle((0,0,0,0), outline=255, fill=pu)  #Up
+            draw.rectangle((1,40,65,42), outline=255, fill=pu)  #Up
         else: # button is pressed:
             draw.rectangle((1,40,65,42), outline=255, fill=1)  #Up filled
             pu = 1
@@ -101,7 +108,8 @@ try:
         else: # button is pressed:
             if pu == 1:
               draw.rectangle((0,0,width,height), outline=0, fill=0)
-              draw.text((x, top), 'SX OS Loading...',  font=font, fill=255)
+              draw.text((x, top), 'SX OS',  font=fontL, fill=255)
+              draw.text((x, top+15), 'Loading...',  font=fontL, fill=255)
               cmd = "sudo cp /boot/nx/payloads/sxos.bin /boot/nx/payload.bin"
               subprocess.check_output(cmd, shell = True )
               pb = 1
@@ -109,7 +117,8 @@ try:
               draw.rectangle((0,0,width,height), outline=0, fill=0)
               cmd = "sudo cp /boot/nx/payloads/fusee-primary.bin /boot/nx/payload.bin"
               subprocess.check_output(cmd, shell = True )
-              draw.text((x, top), 'Atmosphere Loading...',  font=font, fill=255)
+              draw.text((x, top), 'Atmosphere',  font=fontL, fill=255)
+              draw.text((x, top+15), 'Loading...',  font=fontL, fill=255)
               pb = 1
 
         if not GPIO.input(A_pin) and not GPIO.input(B_pin) and not GPIO.input(C_pin):
