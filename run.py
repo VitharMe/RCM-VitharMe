@@ -90,14 +90,14 @@ subprocess.check_output(cmd, shell = True )
 try:
     while 1:
         if GPIO.input(U_pin): # button is released
-            draw.rectangle((1,40,65,42), outline=255, fill=pu)  #Up
+            draw.rectangle((1,40,65,42), outline=0, fill=pu)  #Up
         else: # button is pressed:
             draw.rectangle((1,40,65,42), outline=255, fill=1)  #Up filled
             pu = 1
             pd = 0
 
         if GPIO.input(D_pin): # button is released
-            draw.rectangle((1,60,123,62), outline=255, fill=pd) #down
+            draw.rectangle((1,60,123,62), outline=0, fill=pd) #down
         else: # button is pressed:
             draw.rectangle((1,60,123,62), outline=255, fill=1) #down filled
             pu = 0
